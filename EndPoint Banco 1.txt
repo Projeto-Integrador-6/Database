@@ -1,0 +1,2 @@
+Endpoint: education-tasks-db-1.c2kzs7sep8wd.us-east-1.rds.amazonaws.com
+Porta: 4333
