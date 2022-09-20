@@ -1,77 +1,90 @@
 CREATE TABLE `Institution` (
-  `institution_id` int primary key auto_increment,
-  `name` varchar(50),
-  `cnpj` varchar(14),
+  `id` int primary key,
+  `name` varchar(50) not null,
+  `cnpj` varchar(14)not null,
   `telephone` varchar(14),
-  `address` varchar(150),
-  `modality` varchar(15),
+  `address` varchar(150)not null,
+  `modality` varchar(15)not null,
   `photo` blob,
-  `active` bool
+  `status` int not null
 );
 
 
 CREATE TABLE `Payment_History`(
-`payment_history_id` int primary key auto_increment,
-`date` Datetime,
-`value` double,
+`id` int primary key,
+`date` Datetime not null,
+`value` double not null,
 `institution_id` int,
-FOREIGN KEY  (institution_id)  REFERENCES Institution(institution_id)
+FOREIGN KEY  (institution_id)  REFERENCES Institution(id)
 );
 
 CREATE TABLE `Admin` (
-  `admin_id`  int primary key auto_increment,
-  `email` varchar(50),
-  `password` varchar(50),
-  `credit_card` varchar(50),
+  `id`  int primary key,
+  `email` varchar(50) not null,
+  `password` varchar(50) not null,
+  `credit_card` varchar(50) not null,
   `institution_id` int,
-	FOREIGN KEY  (institution_id)  REFERENCES Institution(institution_id)	
+	FOREIGN KEY  (institution_id)  REFERENCES Institution(id)	
 );
 
 
 CREATE TABLE `Teacher` (
-  `teacher_id` int primary key auto_increment,
-  `name` varchar(30),
-  `email` varchar(30),
+  `id` int primary key ,
+  `name` varchar(30) not null,
+  `email` varchar(30) ,
+  `birthday` datetime not null,
+  `token`varchar(65),
+  `token_date` datetime,
   `phone` varchar(11),
-  `registration` varchar(20),
-  `password` varchar(20),
-  `latts` varchar(50),
-  `active` bool,
+  `registration` varchar(20) not null,
+  `password` varchar(20) not null,
+  `lattus` varchar(50) ,
+  `status` int not null default 0,
   `photo` VARBINARY(1000),
+  `cod` varchar (50) not null, 
   `institution_id` int,
-	FOREIGN KEY  (institution_id)  REFERENCES Institution(institution_id)	
+	FOREIGN KEY  (institution_id)  REFERENCES Institution(id)	
 );
 
 CREATE TABLE `Course` (
-  `course_id` int primary key auto_increment,
-  `name` varchar(30),
-  `knowledge_area` varchar(250),
-  `workload` int,
-  `modality` varchar(20),
+  `id` int primary key,
+  `name` varchar(30) not null,
+  `knowledge_area` varchar(250) not null,
+  `workload` int not null,
+  `modality` varchar(20) not null,
+  `cod` varchar (50) not null, 
    `institution_id` int,
-	FOREIGN KEY  (institution_id)  REFERENCES Institution(institution_id)	
+	FOREIGN KEY  (institution_id)  REFERENCES Institution(id)	
 );
 
 CREATE TABLE `Discipline` (
-  `discipline_id` int primary key auto_increment,
-  `name` varchar(50),
-  `workload` int,
-  `type_discipline` varchar(15),
-  `modality` varchar(20),
+  `id` int primary key ,
+  `name` varchar(50)  not null,
+  `workload` int  not null,
+  `type_discipline` varchar(15)  not null,
+  `modality` varchar(20)  not null,
+  `cod` varchar (50) not null,
+  `caps_id` int,
+	FOREIGN KEY  (caps_id)  REFERENCES Caps(id),
   `teacher_id` int,
-	FOREIGN KEY  (teacher_id)  REFERENCES Teacher(teacher_id)
+	FOREIGN KEY  (teacher_id)  REFERENCES Teacher(id)
+);
+CREATE TABLE `Caps` (
+  `id`  int primary key ,
+  `knowledge` varchar(100) not null
 );
 
 CREATE TABLE `Class` (
-  `class_id` int primary key auto_increment,
-  `name` varchar(20)
+  `id` int primary key ,
+  `name` varchar(20) not null,
+  `cod` varchar (50) not null
 );
 
 CREATE TABLE `Course_Discipline` (
   `discipline_id` int,
-	FOREIGN KEY  (discipline_id)  REFERENCES Discipline(discipline_id),
+	FOREIGN KEY  (discipline_id)  REFERENCES Discipline(id),
    `course_id` int,
-	FOREIGN KEY  (course_id)  REFERENCES Course(course_id)
+	FOREIGN KEY  (course_id)  REFERENCES Course(id)
  
     
 );
@@ -80,65 +93,70 @@ CREATE TABLE `Course_Discipline` (
 CREATE TABLE `Teacher_Discipline` (
 
     `discipline_id` int,
-	FOREIGN KEY  (discipline_id)  REFERENCES Discipline(discipline_id),
+	FOREIGN KEY  (discipline_id)  REFERENCES Discipline(id),
    `teacher_id` int,
-	FOREIGN KEY  (teacher_id)  REFERENCES Teacher(teacher_id),
+	FOREIGN KEY  (teacher_id)  REFERENCES Teacher(id),
     `class_id` int,
-	FOREIGN KEY  (class_id)  REFERENCES Class(class_id)
+	FOREIGN KEY  (class_id)  REFERENCES Class(id)
 );
 
 CREATE TABLE `Task` (
-  `task_id` int primary key auto_increment,
-  `question` varchar(500),
-  `file` VARBINARY(1000),
-  `answer` varchar(500),
-  `pontuation` varchar(10),
-  `limit_date` datetime,
-  `delivery_date` datetime,
-  `rank` boolean,
-  `reduction_factor` float,
-  `grouped` boolean,
+  `id` int primary key ,
+  `question` varchar(500) not null,
+  `file` VARBINARY(1000) not null,
+  `answer` text not null,
+  `pontuation` double ,
+  `limit_date` datetime not null,
+  `delivery_date` datetime not null,
+  `rank` boolean not null,
+  `reduction_factor` float not null,
+  `grouped` boolean not null,
   `member_limiti` int,
+  `correction`bool not null,
   `class_id` int,
-	FOREIGN KEY  (class_id)  REFERENCES Class(class_id)
+	FOREIGN KEY  (class_id)  REFERENCES Class(id)
 );
 
 CREATE TABLE `Report` (
-  `report_id`  int primary key auto_increment,
+  `id`  int primary key ,
   `pontuation` varchar(10),
-  `data`  datetime,
+  `data`  datetime not null,
   `correct` bool,
-  `answer` VARBINARY(1000),
+  `answer` text not null,
    `task_id` int,
-	FOREIGN KEY  (task_id)  REFERENCES Task(task_id)
+	FOREIGN KEY  (task_id)  REFERENCES Task(id)
 );
 CREATE TABLE `Student` (
-  `student_id` int primary key auto_increment,
-  `name` varchar(30),
-  `photo` VARBINARY(1000),
-  `registration` varchar(20),
-  `password` varchar(50),
+  `id` int primary key,
+  `name` varchar(30) not null,
+  `birthday` datetime not null,
+  `token`varchar(65),
+  `token_date` datetime,
+  `photo` blob,
+  `registration` varchar(20) not null,
+  `password` varchar(50) not null,
   `telephone` varchar(15),
-  `email` varchar(40),
+  `email` varchar(40) not null,
   `address` varchar(150),
-  `active` boolean
+  `status` int default 0 not null,
+  `cod`varchar(50) not null
 );
 
 CREATE TABLE `Student_Class` (
   `student_id` int,
-	FOREIGN KEY  (student_id)  REFERENCES Student(student_id),
+	FOREIGN KEY  (student_id)  REFERENCES Student(id),
    `class_id` int,
-	FOREIGN KEY  (class_id)  REFERENCES Class(class_id)
+	FOREIGN KEY  (class_id)  REFERENCES Class(id)
 );
 CREATE TABLE `Team` (
-  `team_id` int primary key auto_increment,
+  `id` int primary key ,
   `name` varchar(50),
   `task_id` int,
-	FOREIGN KEY  (task_id)  REFERENCES Task(task_id)
+	FOREIGN KEY  (task_id)  REFERENCES Task(id)
 );
 CREATE TABLE `Student_Team` (
    `team_id` int,
-	FOREIGN KEY  (team_id)  REFERENCES Team(team_id),
+	FOREIGN KEY  (team_id)  REFERENCES Team(id),
    `student_id` int,
-	FOREIGN KEY  (student_id)  REFERENCES Student(student_id)
+	FOREIGN KEY  (student_id)  REFERENCES Student(id)
 );
