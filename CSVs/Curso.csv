@@ -1,0 +1,28 @@
+Nome;Area;Carga horaria ;Modalidade;Codigo (Codigo do Curso)
+Direito;Ciências Humanas;3700;Presencial;1
+Administração;Ciências Humanas;3000;Ensino a distância;2
+Engenharia civil;Engenharia;3600;Hibrido;3
+Enfermagem;Saúde;4040;Presencial;4
+Pedagogia;Ciências Humanas;3200;Ensino a distância;5
+Psicologia;Ciências Humanas;2025;Hibrido;6
+Contabilidade;Ciências Sociais Aplicada;3000;Presencial;7
+Fisioterapia;Saúde;3200;Ensino a distância;8
+Medicina;Saúde;7200;Hibrido;9
+Arquitetura e Urbanismo;Ciências Exatas;3600;Presencial;10
+Farmácia;Saúde;4000;Ensino a distância;11
+Educação física;Saúde;3200;Hibrido;12
+Nutrição;Saúde;3200;Presencial;13
+Engenharia de produção;Engenharia;7200;Ensino a distância;14
+Engenharia mecânica;Engenharia;3600;Hibrido;15
+Odontologia;Medicina;4000;Presencial;16
+Sistemas de informação;Tecnologia;3000;Ensino a distância;17
+Medicina veterinária;Medicina;4000;Hibrido;18
+Arquitetura de dados;Tecnologia;2400;Presencial;19
+Cibersegurança;Tecnologia;2450;Ensino a distância;20
+Ciência de dados;Tecnologia;3000;Hibrido;21
+Redes de computadores;Tecnologia;2000;Presencial;22
+Gestão ambiental;Meio ambiente;2460;Ensino a distância;23
+Gestão de turismo;Turismo;2100;Hibrido;24
+Gastronomia;Turismo Hospitalar Lazer;800;Presencial;25
+Gestão de recursos humanos;Ciências Humanas;1800;Ensino a distância;26
+Design gráfico;Ciências Sociais Aplicada;2400;Hibrido;27
